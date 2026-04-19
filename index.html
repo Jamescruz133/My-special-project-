@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Aesthetic Hearts</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e0f0ff, #b3d9ff);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Background bows */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .bow {
+            position: absolute;
+            color: #0066cc;
+            font-size: 2rem;
+            opacity: 0.7;
+        }
+
+        .bow1 { top: 10%; left: 20%; transform: rotate(-20deg); }
+        .bow2 { top: 5%; right: 25%; transform: rotate(15deg); }
+        .bow3 { top: 40%; left: 10%; transform: rotate(30deg); }
+        .bow4 { top: 60%; right: 15%; transform: rotate(-10deg); }
+        .bow5 { bottom: 20%; left: 25%; transform: rotate(25deg); }
+        .bow6 { bottom: 10%; right: 20%; transform: rotate(-30deg); }
+
+        /* Search bar */
+        .search-bar {
+            margin-bottom: 2rem;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.5);
+            outline: none;
+            font-size: 0.9rem;
+            color: #004080;
+        }
+
+        .search-bar input::placeholder {
+            color: #004080;
+            opacity: 0.7;
+        }
+
+        /* Folder button */
+        .folder-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.4);
+            border: 2px solid #0066cc;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            width: 150px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .folder-btn:hover {
+            background: rgba(0, 102, 204, 0.1);
+        }
+
+        .folder-btn i {
+            font-size: 3rem;
+            color: #0066cc;
+            margin-bottom: 0.5rem;
+        }
+
+        .folder-btn span {
+            color: #004080;
+            font-weight: 500;
+        }
+
+        /* Icon grid */
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .icon-card {
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .icon-card:hover {
+            transform: translateY(-5px);
+            background: rgba(0, 102, 204, 0.1);
+        }
+
+        .icon-card i {
+            font-size: 2.5rem;
+            color: #0066cc;
+            margin-bottom: 0.5rem;
+        }
+
+        .icon-card p {
+            color: #004080;
+            font-weight: 500;
+        }
+
+        /* Content Overlay */
+        .content-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(179, 217, 255, 0.9);
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .content-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 80%;
+            max-width: 300px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Music Box */
+        .music-box {
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid #0066cc;
+        }
+
+        .music-image img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border: 3px solid #0066cc;
+        }
+
+        .music-title {
+            font-family: 'Cursive', 'Segoe UI', sans-serif;
+            font-size: 1.5rem;
+            color: #004080;
+            margin-bottom: 1rem;
+        }
+
+        /* Pictures Grid (NEW) */
+        .pictures-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .pictures-grid img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid #0066cc;
+        }
+
+        /* Video Box */
+        .video-box video {
+            border-radius: 10px;
+            border: 3px solid #0066cc;
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #0066cc;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            color: #0066cc;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .back-btn:hover {
+            background: rgba(0, 102, 204, 0.2);
+        }
+
+        .content-box h3 {
+            color: #004080;
+            margin-bottom: 1rem;
+        }
+
+        .content-box p {
+            color: #004080;
+            font-size: 1rem;
+        }
+
+        .content-box audio {
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .footer p {
+            color: #004080;
+            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.3);
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Background with bows -->
+        <div class="background">
+            <i class="fas fa-gift bow bow1"></i>
+            <i class="fas fa-gift bow bow2"></i>
+            <i class="fas fa-gift bow bow3"></i>
+            <i class="fas fa-gift bow bow4"></i>
+            <i class="fas fa-gift bow bow5"></i>
+            <i class="fas fa-gift bow bow6"></i>
+        </div>
+
+        <!-- Open Folder Button -->
+        <div class="folder-btn" id="folderBtn">
+            <i class="fas fa-heart"></i>
+            <span>Open Folder</span>
+        </div>
+
+        <!-- Grid of Icons - Hidden by default -->
+        <div class="icon-grid" id="iconGrid">
+            <!-- Music -->
+            <div class="icon-card" onclick="openContent('musicContent')">
+                <i class="fas fa-heart"></i>
+                <p>Music</p>
+            </div>
+
+            <!-- Message -->
+            <div class="icon-card" onclick="openContent('messageContent')">
+                <i class="fas fa-heart"></i>
+                <p>Aether</p>
+            </div>
+
+            <!-- Pictures -->
+            <div class="icon-card" onclick="openContent('pictContent')">
+                <i class="fas fa-heart"></i>
+                <p>Pictures</p>
+            </div>
+
+            <!-- Cute / Video -->
+            <div class="icon-card" onclick="openContent('videoContent')">
+                <i class="fas fa-heart"></i>
+                <p>Memories</p>
+            </div>
+        </div>
+
+        <!-- === MUSIC CONTENT === -->
+        <div class="content-overlay" id="musicContent">
+            <div class="content-box music-box">
+                <span class="close-btn" onclick="closeContent('musicContent')">&times;</span>
+                
+                <div class="music-image">
+                    <img src="7843c3b3-59c1-4723-ae69-83c3ae8eb89e.jfif" alt="Music">
+                </div>
+
+                <h3 class="music-title">Tahanan</h3>
+
+                <audio controls>
+                    <source src="El Manu - Tahanan (Lyrics).mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                
+
+                <button class="back-btn" onclick="closeContent('musicContent')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- === MESSAGE CONTENT === -->
+        <div class="content-overlay" id="messageContent">
+            <div class="content-box">
+                <span class="close-btn" onclick="closeContent('messageContent')">&times;</span>
+                <h3>Message 💌</h3>
+                <p>HAPPY MONTHSARY, HAL!!
+Ahmmm, wala akong gift na material na bagay, pero sana ma-appreciate mo ito HEHE.
+
+ILOVEYOUSOMUCHHH!!. Kahit na madalas tayong mag-away, kahit na may mga napapafeel ako sa’yo na hindi dapat, tandaan mo na mahal na mahal kita at hindi ‘yon magbabago.
+
+ILOVEYOU Hal, and I miss you. I can’t wait mag bakasyon.
+
+HAPPY MONTHSARY AGAIN! 💙</p>
+            </div>
+        </div>
+
+        <!-- === PICTURES CONTENT (4 IMAGES) === -->
+        <div class="content-overlay" id="pictContent">
+            <div class="content-box">
+                <span class="close-btn" onclick="closeContent('pictContent')">&times;</span>
+                <h3>Gallery 📷</h3>
+                
+                <div class="pictures-grid">
+                    <img src="ba733c27-9d88-4b2f-bbd4-ffdbc6d2019b.jfif" alt="Picture 1">
+                    <img src="642530e8-49b2-48a5-abb2-33ccc07bf3cd.jfif" alt="Picture 2">
+                    <img src="0056d308-609b-4836-a892-8cd093acea26.jfif" alt="Picture 3">
+                    <img src="f8f673ae-5a71-47a5-9f1f-a3f94d6ad262.jfif" alt="Picture 4">
+                </div>
+
+                <button class="back-btn" onclick="closeContent('pictContent')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- === VIDEO CONTENT === -->
+        <div class="content-overlay" id="videoContent">
+            <div class="content-box video-box">
+                <span class="close-btn" onclick="closeContent('videoContent')">&times;</span>
+                <h3>Video 🎬</h3>
+                
+                <video controls>
+                    <source src="snaptik_7630512686060555541_hd.mp4" type="video/mp4">
+                    Your browser does not support the video element.
+                </video>
+
+                <button class="back-btn" onclick="closeContent('videoContent')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+        </div>
+
+    <script>
+        // Show/Hide folder
+        const folderBtn = document.getElementById('folderBtn');
+        const iconGrid = document.getElementById('iconGrid');
+        iconGrid.style.display = 'none';
+
+        folderBtn.addEventListener('click', function() {
+            if (iconGrid.style.display === 'none') {
+                iconGrid.style.display = 'grid';
+            } else {
+                iconGrid.style.display = 'none';
+            }
+        });
+
+        // Open content
+        function openContent(id) {
+            document.getElementById(id).style.display = 'flex';
+        }
+
+        // Close content
+        function closeContent(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+    </script>
+</body>
+</html>
